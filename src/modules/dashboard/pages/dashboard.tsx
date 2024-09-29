@@ -68,7 +68,7 @@ export function Dashboard() {
             Orders
           </Link>
           <Link
-            to="."
+            to="/login"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
             Products
