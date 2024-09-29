@@ -2,6 +2,7 @@ import { createRootRoute, createRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { Dashboard } from "./modules/dashboard/pages/dashboard";
 import { LoginForm } from "./modules/login/pages/login";
+import { z } from "zod";
 
 export const rootRoute = createRootRoute({
   component: () => (
@@ -24,10 +25,15 @@ export const ordersRoute = createRoute({
   component: () => <div>Orders</div>,
 });
 
+const loginSearchParams = z.object({
+  redirect: z.string().optional(),
+});
+
 export const loginRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/login",
   component: LoginForm,
+  validateSearch: (search) => loginSearchParams.parse(search),
 });
 
 export const routeTree = rootRoute.addChildren([

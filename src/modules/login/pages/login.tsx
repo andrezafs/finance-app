@@ -18,17 +18,40 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
+import { useAuthenticateMutation } from "@/graphql/generated/graphql";
+
+import { useToast } from "@/hooks/use-toast";
+import { sessionManager } from "@/lib/session-manager";
+import { loginRoute } from "@/routes";
 
 export function LoginForm() {
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
   const form = useForm<LoginValidator>({
     resolver: zodResolver(loginValidator),
   });
 
-  const onSubmit: SubmitHandler<LoginValidator> = (values) => {
-    console.log(values);
-  };
+  const { redirect } = loginRoute.useSearch();
+
+  const { mutate } = useAuthenticateMutation({
+    onError: () => {
+      toast({
+        title: "Erro!",
+        description: "Email ou senha incorretos!",
+        variant: "destructive",
+        duration: 3000,
+      });
+    },
+    onSuccess: (data) => {
+      sessionManager.authenticate(data.authenticate);
+      navigate({ to: redirect ?? "/", replace: true });
+    },
+  });
+
+  const onSubmit: SubmitHandler<LoginValidator> = (data) => mutate(data);
 
   return (
     <div className="flex min-h-screen items-center justify-center">
