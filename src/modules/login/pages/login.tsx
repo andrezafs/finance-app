@@ -1,6 +1,14 @@
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -9,18 +17,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useAuthenticateMutation } from "@/graphql/generated/graphql";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { LoginValidator, loginValidator } from "../validators/loginValidator";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Link, useNavigate } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
-import { useAuthenticateMutation } from "@/graphql/generated/graphql";
 
 import { useToast } from "@/hooks/use-toast";
 import { sessionManager } from "@/lib/session-manager";
@@ -106,7 +106,7 @@ export function LoginForm() {
               </div>
               <div className="mt-4 text-center text-sm">
                 Não tem uma conta?{" "}
-                <Link to="/createAccount" className="underline">
+                <Link to="/create-account" className="underline">
                   Crie uma
                 </Link>
               </div>
