@@ -46,8 +46,8 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
-      - name: Generate Types
-        run: pnpm generate:types
+      - name: Codegen
+        run: pnpm codegen
 
       - name: Build
         run: pnpm build
