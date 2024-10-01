@@ -40,7 +40,7 @@ export function LoginForm() {
     onError: () => {
       toast({
         title: "Erro!",
-        description: "Email ou senha incorretos!",
+        description: "Erro ao realizar login!",
         variant: "destructive",
         duration: 3000,
       });
@@ -61,7 +61,7 @@ export function LoginForm() {
             <CardHeader>
               <CardTitle className="text-2xl">Login</CardTitle>
               <CardDescription>
-                Enter your email below to login to your account
+                Digite seus dados abaixo para fazer login em sua conta
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -72,7 +72,7 @@ export function LoginForm() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel>E-mail</FormLabel>
                         <FormControl>
                           <Input placeholder="Digite seu e-mail" {...field} />
                         </FormControl>
@@ -96,14 +96,18 @@ export function LoginForm() {
                     )}
                   />
                 </div>
-                <Button type="submit" className="w-full">
-                  Login
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={!form.formState.isValid}
+                >
+                  Entrar
                 </Button>
               </div>
               <div className="mt-4 text-center text-sm">
-                Don&apos;t have an account?{" "}
-                <Link href="." className="underline">
-                  Sign up
+                Não tem uma conta?{" "}
+                <Link to="/createAccount" className="underline">
+                  Crie uma
                 </Link>
               </div>
             </CardContent>
